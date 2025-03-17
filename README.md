@@ -1,10 +1,10 @@
 # PemwebFinal
 
-Thio Billy Amansyah 5027231007
+Rafi
 
 Gilang Raya Kurniawan 5027221045
 
-Dionisius Marcell Putra Indranto 5027231044
+Ranidist
 
 This template should help get you started developing with Vue 3 in Vite.
 
