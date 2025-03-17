@@ -5,7 +5,7 @@ import LoginPage from './views/login.vue';
 import RegisterPage from './views/register.vue';
 import RulesPage from './views/rules.vue';
 import FoodDashboard from './views/admin/admin.dashbord.vue';
-import FoodAdd from './/views/admin/admin.food.add.vue';
+import FoodAdd from './views/admin/admin.food.add.vue';
 import axios from 'axios';
 
 const routes = [

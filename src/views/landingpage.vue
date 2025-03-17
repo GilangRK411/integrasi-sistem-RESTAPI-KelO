@@ -9,6 +9,7 @@
           <img :src="food.photo" :alt="food.name" class="w-full h-48 object-cover rounded-lg mb-4 border-4 border-red-500">
           <h2 class="text-2xl font-bold text-red-600">{{ food.name }}</h2>
           <p class="text-gray-700 mt-2">{{ food.description }}</p>
+          <p class="text-lg font-semibold mt-2 text-green-700">Rp {{ food.price.toLocaleString() }}</p>
         </div>
       </div>
       
