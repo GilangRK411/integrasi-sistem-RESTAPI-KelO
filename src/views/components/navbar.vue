@@ -4,7 +4,7 @@
       <h1 class="text-3xl font-bold text-white">Restoran Gaul</h1>
       <ul class="flex space-x-8">
         <li v-if="!isLoggedIn">
-          <router-link to="/rules" class="text-white hover:text-blue-200 transition duration-300">Kontak Kami</router-link>
+          <router-link to="/add" class="text-white hover:text-blue-200 transition duration-300">Tambahkan Menu</router-link>
         </li>
         <li v-if="!isLoggedIn">
           <router-link to="/facility" class="text-white hover:text-blue-200 transition duration-300">Fasilitas</router-link>
@@ -24,9 +24,7 @@
             </svg>
           </button>
           <div v-if="dropdownVisible" class="absolute right-0 mt-2 bg-white text-black rounded-lg shadow-lg w-48 py-2">
-            <router-link to="/user" class="block px-4 py-2 hover:bg-gray-200">User Profile</router-link>
-            <router-link to="/laporan/penghuni" class="block px-4 py-2 hover:bg-gray-200">Laporan Penghuni</router-link>
-            <router-link to="/laporan/fasilitas" class="block px-4 py-2 hover:bg-gray-200">Laporan Fasilitas</router-link>
+            <router-link to="/add" class="block px-4 py-2 hover:bg-gray-200">Tambahkan Menu</router-link>
             <button @click="logout" class="block w-full px-4 py-2 text-left text-red-500 hover:bg-gray-200">Logout</button>
           </div>
         </li>

@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import LandingPage from './views/landingpage.vue';
+import MenuPage from './views/menupage.vue';
 import FacilityPage from './views/facility.vue';
 import LoginPage from './views/login.vue';
 import RegisterPage from './views/register.vue';
@@ -11,8 +11,8 @@ import axios from 'axios';
 const routes = [
   {
     path: '/',
-    name: 'landing',
-    component: LandingPage,
+    name: 'menupage',
+    component: MenuPage,
   },
   {
     path: '/facility',
@@ -27,7 +27,7 @@ const routes = [
   {
     path: '/menupage',
     name: 'menupage',
-    component: LandingPage,
+    component: MenuPage,
   },
   {
     path: '/register',
