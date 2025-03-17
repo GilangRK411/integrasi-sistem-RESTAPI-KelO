@@ -87,10 +87,7 @@ export default {
   methods: {
     async fetchFoods() {
       try {
-        const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:5050/food/show", {
-          headers: { Authorization: `Bearer ${token}` }
-        });
+        const response = await axios.get("http://localhost:5050/food/show");
         this.foods = response.data.data;
       } catch (error) {
         console.error("Error fetching foods:", error);

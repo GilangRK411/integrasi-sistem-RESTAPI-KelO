@@ -33,8 +33,7 @@ export async function authenticate(req, res, next) {
             return res.status(401).json({ message: 'Invalid token or session expired' });
         }
 
-        const currentTime = new Date();
-        if (new Date(session.expires_at) < currentTime) {
+        if (new Date(session.expires_at).getTime() < Date.now()) {
             return res.status(401).json({ message: 'Token has expired' });
         }
 

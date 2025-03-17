@@ -43,13 +43,13 @@ const routes = [
     path: '/dashboard',
     name: 'dashboard',
     component: FoodDashboard,
-    meta: { requiresAuth: true},
+    meta: { requiresAuth: true, requiresAdmin: true},
   },
   {
     path: '/add',
     name: 'add',
     component: FoodAdd,
-    meta: { requiresAuth: true},
+    meta: { requiresAuth: true, requiresAdmin: true},
   },
 ];
 
@@ -94,6 +94,5 @@ router.beforeEach(async (to, from, next) => {
     next();
   }
 });
-
 
 export default router;

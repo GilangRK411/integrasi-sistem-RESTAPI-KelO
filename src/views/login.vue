@@ -72,9 +72,16 @@ export default {
         });
 
         if (response.data && response.data.token) {
-          const { token } = response.data;
+          const { token, role } = response.data; 
+        
           localStorage.setItem('token', token);
-          this.$router.push('/dashboard');
+          localStorage.setItem('role', role);
+
+          if (role === 'admin') {
+            this.$router.push('/dashboard');
+          } else {
+            this.$router.push('/menupage');
+          }
           
           setTimeout(() => {
             window.location.reload();

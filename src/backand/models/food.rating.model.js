@@ -19,7 +19,7 @@ const ratingSchema = new Schema({
         min: 0,
         max: 5
     }
-}, { timestamps: true });
+});
 
 const Rating = model("Rating", ratingSchema);
 
