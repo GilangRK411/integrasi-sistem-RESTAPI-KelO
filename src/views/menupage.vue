@@ -11,12 +11,12 @@
           <p class="text-gray-700 mt-2">{{ food.description }}</p>
           <p class="text-lg font-semibold mt-2 text-green-700">Rp {{ food.price.toLocaleString() }}</p>
           
-          <button @click="buyFood(food._id)" 
-          class="mt-3 px-4 py-2 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition">
-          Beli
+          <button @click="openPopup(food)" 
+            class="mt-3 px-4 py-2 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition">
+            Beli
           </button>
 
-          <!-- Tampilkan Rating -->
+          <!-- Rating -->
           <div class="mt-3">
             <span v-for="star in 5" :key="star" 
                   @click="giveRating(food._id, star)" 
@@ -34,6 +34,33 @@
 
       <p v-else class="text-gray-700 mt-4">No food items available.</p>
     </div>
+
+    <!-- Popup -->
+    <div v-if="showPopup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+      <div class="bg-white p-6 rounded-lg shadow-lg w-96 text-center">
+        <h2 class="text-2xl font-bold text-red-600 mb-4">Konfirmasi Pembelian</h2>
+        <p class="text-lg text-black text-black-700">{{ selectedFood.name }}</p>
+        <p class="text-md text-black text-black-500 mb-4">Harga per item: Rp {{ selectedFood.price.toLocaleString() }}</p>
+
+        <label for="quantity" class="block text-md font-medium text-black text-black-700">Jumlah:</label>
+        <input  type="number" id="quantity" v-model="selectedQuantity" min="1"
+          class="w-full mt-2 px-3 py-2 border rounded-md text-center text-black focus:ring focus:ring-green-500">
+
+        <p class="text-lg font-semibold text-green-700 mt-3">Total: Rp {{ totalPrice.toLocaleString() }}</p>
+
+        <div class="flex justify-between mt-4">
+          <button @click="closePopup"
+            class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-black-500">
+            Batal
+          </button>
+          <button @click="confirmPurchase"
+            class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+            Konfirmasi
+          </button>
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -44,8 +71,16 @@ export default {
   data() {
     return {
       foods: [],
-      userRatings: {} 
+      userRatings: {},
+      showPopup: false,
+      selectedFood: null,
+      selectedQuantity: 1,
     };
+  },
+  computed: {
+    totalPrice() {
+      return this.selectedFood ? this.selectedFood.price * this.selectedQuantity : 0;
+    }
   },
   async created() {
     await this.fetchFoods();
@@ -56,7 +91,6 @@ export default {
         const foodResponse = await axios.get("http://localhost:5050/food/show");
         this.foods = foodResponse.data.data;
 
-        // Ambil rata-rata rating untuk setiap makanan
         for (let food of this.foods) {
           const ratingResponse = await axios.get(`http://localhost:5050/food/ratings/${food._id}`);
           food.averageRating = ratingResponse.data.averageRating || 0;
@@ -66,10 +100,38 @@ export default {
       }
     },
 
+    openPopup(food) {
+      this.selectedFood = food;
+      this.selectedQuantity = 1;
+      this.showPopup = true;
+    },
+
+    closePopup() {
+      this.showPopup = false;
+    },
+
+    async confirmPurchase() {
+      try {
+        const response = await axios.post("http://localhost:5050/food/order", {
+          foodId: this.selectedFood._id,
+          userId: null, 
+          quantity: this.selectedQuantity
+        });
+
+        if (response.status === 201) {
+          alert("Pembelian berhasil!");
+          this.closePopup();
+        }
+      } catch (error) {
+        console.error("Gagal membeli makanan:", error.response ? error.response.data : error);
+        alert("Terjadi kesalahan saat membeli makanan.");
+      }
+    },
+
     async giveRating(foodId, rating) {
       try {
         const response = await axios.post("http://localhost:5050/food/rating", {
-          foodId,  // Sesuaikan dengan backend
+          foodId,
           value: rating
         }, {
           headers: {
@@ -80,35 +142,11 @@ export default {
         if (response.status === 201) {
           this.$set(this.userRatings, foodId, rating);
           alert("Rating berhasil dikirim!");
-          await this.fetchFoods(); // Refresh rating setelah submit
+          await this.fetchFoods();
         }
       } catch (error) {
         console.error("Gagal mengirim rating:", error);
         alert("Terjadi kesalahan saat memberikan rating.");
-      }
-    },
-
-    async buyFood(foodId) {
-      try {
-        const quantity = 1; // Bisa ubah ke input jumlah
-
-        // Debug: Lihat data sebelum dikirim
-        console.log("Mengirim data:", { foodId, userId: null, quantity });
-
-        const response = await axios.post("http://localhost:5050/food/order", {
-          foodId,
-          userId: null, // Tidak perlu login
-          quantity
-        });
-
-        console.log("Response:", response.data);
-
-        if (response.status === 201) {
-          alert("Pembelian berhasil!");
-        }
-      } catch (error) {
-        console.error("Gagal membeli makanan:", error.response ? error.response.data : error);
-        alert("Terjadi kesalahan saat membeli makanan.");
       }
     }
   }
