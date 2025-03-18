@@ -12,8 +12,8 @@
           <p class="text-gray-700 mt-2">{{ food.description }}</p>
           <p class="text-lg font-semibold mt-2 text-green-700">Rp {{ food.price.toLocaleString() }}</p>
 
-          <!-- Tombol Edit dan Delete -->
-          <div class="flex justify-between mt-4">
+          <!-- Tombol Edit dan Delete di tengah -->
+          <div class="flex justify-center gap-4 mt-4">
             <button 
               @click="openEditModal(food)" 
               class="px-4 py-2 bg-yellow-500 text-white font-semibold rounded-lg shadow hover:bg-yellow-600 transition">
@@ -32,37 +32,9 @@
       <!-- Pesan jika tidak ada makanan -->
       <p v-else class="text-gray-700 mt-4">No food items available.</p>
     </div>
-
-    <!-- Modal Edit -->
-    <div v-if="showEditModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-6">
-      <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
-        <h2 class="text-2xl font-bold text-red-600 mb-4">Edit Food</h2>
-
-        <label class="block text-left font-semibold">Name:</label>
-        <input v-model="editFood.name" type="text" class="w-full border p-2 rounded mb-2" placeholder="Enter food name">
-
-        <label class="block text-left font-semibold">Photo:</label>
-        <input type="file" @change="convertToBase64" class="w-full border p-2 rounded mb-2">
-        <img v-if="editFood.photo" :src="editFood.photo" alt="Preview" class="w-full h-32 object-cover mt-2 rounded">
-
-        <label class="block text-left font-semibold">Description:</label>
-        <textarea v-model="editFood.description" class="w-full border p-2 rounded mb-2" placeholder="Enter description"></textarea>
-
-        <label class="block text-left font-semibold">Price:</label>
-        <input v-model="editFood.price" type="number" class="w-full border p-2 rounded mb-2" placeholder="Enter price">
-
-        <div class="flex justify-end space-x-2 mt-4">
-          <button @click="showEditModal = false" class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
-            Cancel
-          </button>
-          <button @click="updateFood" class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
-            Save
-          </button>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
+
 
 <script>
 import axios from 'axios';

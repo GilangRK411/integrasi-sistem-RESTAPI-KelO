@@ -1,28 +1,66 @@
 <template>
-  <div class="food-dashboard">
-    <h2>Tambah Makanan</h2>
+  <div class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="max-w-lg w-full p-8 bg-white rounded-lg shadow-lg">
+      <h2 class="text-3xl font-bold text-center text-red-600 mb-6">Tambah Makanan</h2>
 
-    <div v-if="message" class="success">{{ message }}</div>
-    <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
+      <div v-if="message" class="text-green-600 text-center font-semibold mb-4">{{ message }}</div>
+      <div v-if="errorMessage" class="text-red-500 text-center font-semibold mb-4">{{ errorMessage }}</div>
 
-    <form @submit.prevent="addFood">
-      <label>Nama:</label>
-      <input v-model="food.name" type="text" placeholder="Nama makanan" required />
+      <form @submit.prevent="addFood" class="space-y-4">
+        <div>
+          <label class="block text-sm font-semibold text-black-700">Nama:</label>
+          <input 
+            v-model="food.name" 
+            type="text" 
+            placeholder="Nama makanan" 
+            required 
+            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-black"
+          />
+        </div>
 
-      <label>Foto:</label>
-      <input type="file" accept="image/*" @change="handleFileUpload" required />
-      <div v-if="food.photo">
-        <img :src="food.photo" alt="Preview" class="preview" />
-      </div>
+        <div>
+          <label class="block text-sm font-semibold text-black-700">Foto:</label>
+          <input 
+            type="file" 
+            accept="image/*" 
+            @change="handleFileUpload" 
+            required 
+            class="w-full p-2 border border-gray-300 rounded-md cursor-pointer bg-gray-50"
+          />
+          <div v-if="food.photo" class="mt-3 flex justify-center">
+            <img :src="food.photo" alt="Preview" class="w-32 h-32 object-cover rounded-md border border-gray-300 shadow-sm" />
+          </div>
+        </div>
 
-      <label>Deskripsi:</label>
-      <textarea v-model="food.description" placeholder="Deskripsi makanan" required></textarea>
+        <div>
+          <label class="block text-sm font-semibold text-black-700">Deskripsi:</label>
+          <textarea 
+            v-model="food.description" 
+            placeholder="Deskripsi makanan" 
+            required 
+            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black"
+          ></textarea>
+        </div>
 
-      <label>Harga:</label>
-      <input v-model="food.price" placeholder="Harga makanan" required />
+        <div>
+          <label class="block text-sm font-semibold text-black-700">Harga:</label>
+          <input 
+            v-model="food.price" 
+            type="number" 
+            placeholder="Harga makanan" 
+            required 
+            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black"
+          />
+        </div>
 
-      <button type="submit">Tambah</button>
-    </form>
+        <button 
+          type="submit" 
+          class="w-full p-3 bg-blue-600 text-white rounded-md font-semibold hover:bg-blue-700 transition duration-300 shadow-md"
+        >
+          Tambah
+        </button>
+      </form>
+    </div>
   </div>
 </template>
 

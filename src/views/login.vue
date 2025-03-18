@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center justify-center min-h-screen bg-gray-100">
     <div class="max-w-lg w-full p-8 bg-white rounded-lg shadow-lg">
-      <h2 class="text-3xl font-bold text-center text-blue-600 mb-6">Login</h2>
+      <h2 class="text-3xl font-bold text-center text-red-600 mb-6">Login</h2>
 
       <form @submit.prevent="handleLogin">
         <div class="mb-4">
@@ -12,7 +12,7 @@
             v-model="usernameOrEmail"
             placeholder="Enter username or email"
             required
-            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black"
+            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-black"
           />
         </div>
         
@@ -24,14 +24,14 @@
             v-model="password"
             placeholder="Enter password"
             required
-            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black"
+            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-black"
           />
         </div>
 
         <button
           type="submit"
           :disabled="isLoading"
-          class="w-full p-3 bg-blue-600 text-white rounded-md font-semibold hover:bg-blue-700 transition duration-300 disabled:bg-gray-400 disabled:cursor-not-allowed"
+          class="w-full p-3 bg-red-600 text-white rounded-md font-semibold hover:bg-red-700 transition duration-300 disabled:bg-gray-400 disabled:cursor-not-allowed"
         >
           <span v-if="isLoading">Loading...</span>
           <span v-else>Login</span>
